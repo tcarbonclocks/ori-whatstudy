@@ -17,7 +17,7 @@ function addButtonActions() {
  */
 function fetchRooms() {
     var token = "259a7abd9185e783b791029864c2be6be6d17f18a1c094ec";
-    var myApi = new Api('GET', 'rooms/check/'+token, null,'');
+    var myApi = new Api('GET', 'rooms/check/'+token, null);
     myApi.execute(showRooms, ErrorRooms);
 }
 
