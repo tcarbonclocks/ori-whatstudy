@@ -18,7 +18,7 @@ function addButtonActions() {
 function fetchRooms() {
     var token = "259a7abd9185e783b791029864c2be6be6d17f18a1c094ec";
     var myApi = new Api('GET', 'rooms/check/' + token, null);
-    myApi.execute(showRooms, ErrorRooms);
+    myApi.execute(showRooms, errorRooms);
 }
 /*
  * show recieved Rooms
@@ -30,7 +30,7 @@ function showRooms(response) {
 /*
  * error fetching Rooms
  */
-function ErrorRooms(statusCode, errorMessage) {
+function errorRooms(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
 }
