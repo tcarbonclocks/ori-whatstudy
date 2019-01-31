@@ -55,7 +55,7 @@ function tokenSuccess(token) {
     showPage("page-welcome");
     $("#login-loading").hide();    
     $("#btn-login").hide();
-    $("#loggedin-text").html("Ingelogd als " + token.name.first + " " + token.name.last + " " + token.id);
+    $("#loggedin-text").html("Ingelogd als " + token.name.first + " " + token.name.last + " (" + token.id + ")");
     fetchRooms(token);
 }
 
