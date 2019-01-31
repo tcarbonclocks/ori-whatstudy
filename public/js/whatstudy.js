@@ -1,19 +1,16 @@
 "use strict";
 
-function pageInit() {
-    getToken();
-}
-
 /**
  * Add actions to page buttons 
  */
 function addButtonActions() {
-    var test = document.getElementById('test');
-
-    test.addEventListener("click", function () {
-        fetchRooms();
+    $(document).ready(function () { 
+        $("#btn-login").on("click", function () {
+            getToken();
+            $("#btn-login").hide();
+            $("#login-loading").show();
+        });
     });
-
 }
 
 function showPage(pageId) {
@@ -24,9 +21,8 @@ function showPage(pageId) {
 /*
  * fetch Rooms throught Api
  */
-function fetchRooms() {
-    var token = "259a7abd9185e783b791029864c2be6be6d17f18a1c094ec";
-    var myApi = new Api('GET', 'rooms/check/' + token, null);
+function fetchRooms(token) {
+    var myApi = new Api('GET', 'rooms/check/' + token.token, null);
     myApi.execute(showRooms, errorRooms);
 }
 /*
@@ -48,12 +44,21 @@ function tokenError(message) {
     // Do something with the message
     console.log("Token error:" + message);
 
+    $('#login-fail-modal').modal('show');
+
+    $("#login-loading").hide();    
+    $("#btn-login").show();
 }
 
-function tokenSuccess(token, callback) {
+function tokenSuccess(token) {
     // Do something with the token
-
+    showPage("page-welcome");
+    $("#login-loading").hide();    
+    $("#btn-login").hide();
+    $("#loggedintext").html("Ingelogd als " + token.name);
+    fetchRooms(token);
 }
 
 // initialize
 addButtonActions();
+showPage("page-gatekeeper");

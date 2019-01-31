@@ -1,17 +1,6 @@
-
-h1 {
-    display: flex;
-    text-align: center;
-    font-size: 3em;
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
-    margin-left: 0;
-    margin-right: 0;
-    font-weight: bold;
-}
-
 body {
     display: flex;
+    padding-top: 65px;
     background-color: #ccc;
     flex-direction: column;
     flex-wrap: wrap;
@@ -25,4 +14,8 @@ body {
     border-radius: 20px;
     margin: 35px;
     padding: 20px;
+}
+
+#logo-picture {
+    height: 30px;
 }
