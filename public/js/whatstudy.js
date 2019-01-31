@@ -1,5 +1,9 @@
 "use strict";
 
+function pageInit() {
+    getToken();
+}
+
 /**
  * Add actions to page buttons 
  */
@@ -10,6 +14,11 @@ function addButtonActions() {
         fetchRooms();
     });
 
+}
+
+function showPage(pageId) {
+    $(".page").hide();
+    $("#" + pageId).show();
 }
 
 /*
@@ -33,6 +42,17 @@ function showRooms(response) {
 function errorRooms(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
+}
+
+function tokenError(message) {
+    // Do something with the message
+    console.log("Token error:" + message);
+
+}
+
+function tokenSuccess(token, callback) {
+    // Do something with the token
+
 }
 
 // initialize
