@@ -9,13 +9,6 @@ body {
     flex-grow: 1;
 }
 
-#navbar {
-    border: 3px solid;
-    border-radius: 20px;
-    margin: 35px;
-    padding: 20px;
-}
-
 #logo-picture {
     height: 30px;
 }
