@@ -1,5 +1,8 @@
 "use strict";
 
+var userToken;
+var rooms;
+
 /**
  * Add actions to page buttons 
  */
@@ -29,6 +32,9 @@ function fetchRooms(token) {
  * show recieved Rooms
  */
 function showRooms(response) {
+    rooms = response;
+    navbarDropdownMenu.rooms = response;
+    navbarDropdown.fetched = true;
     console.log(response);
 }
 
@@ -52,12 +58,30 @@ function tokenError(message) {
 
 function tokenSuccess(token) {
     // Do something with the token
+    userToken = token;
     showPage("page-welcome");
     $("#login-loading").hide();    
     $("#btn-login").hide();
     $("#loggedin-text").html("Ingelogd als " + token.name.first + " " + token.name.last + " (" + token.id + ")");
-    fetchRooms(token);
+    fetchRooms(userToken);
 }
+
+Vue.component('dropdown-item', {
+    props: ['room'],
+    template: "<a class='dropdown-item' href='#'>{{ room.name }}</a>"
+})
+
+var navbarDropdownMenu = new Vue({
+    el: "#navbarDropdownMenu",
+    data: {rooms: []}
+})
+
+var navbarDropdown = new Vue({
+    el: "#navbarDropdown",
+    data: {
+        fetched: false
+    }
+})
 
 // initialize
 addButtonActions();

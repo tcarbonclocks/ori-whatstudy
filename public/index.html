@@ -21,12 +21,14 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="fetched">
+                              Rooms
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdownMenu">
+                                <dropdown-item v-for="room in rooms" v-bind:room="room" v-bind:key="room.id"></dropdown-item>
+                            </div>
+                          </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item">
@@ -51,6 +53,7 @@
             <div class="page" id="page-welcome">
                 <h2>Welkom op mijn site.</h2>
             </div>
+            <div id="app"></div>
         </main>
 
         <!-- Modal 1: login failure -->
