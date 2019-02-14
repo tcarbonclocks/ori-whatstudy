@@ -13,12 +13,50 @@ const gatekeeperPage = { template: "<div>" +
 
 const roomPage = { template:  "<div>" +
                               "<p>Welkom bij room {{ $route.params.id }}</p>" +
+                              "</div>",
+                    beforeRouteEnter: (to, from, next) => {
+                        var roomNumber = to.params.id;
+                        console.log("Connecting to room " + roomNumber);
+                        if (rooms === undefined) {
+                            router.push("/gatekeeper");
+                            redirectRoom = roomNumber;
+                        } else if (roomNumber >= (rooms.length + 1) || roomNumber <= 0) {
+                            router.push("/roomerror");
+                        } else {
+                            next();
+                        }
+                    },
+                    beforeRouteUpdate: (to, from, next) => {
+                        var roomNumber = to.params.id;
+                        console.log("Connecting to room " + roomNumber);
+                        if (rooms === undefined) {
+                            router.push("/gatekeeper?roomcallback=" + roomNumber);
+                        } else if (roomNumber >= (rooms.length + 1) || roomNumber <= 0) {
+                            router.push("/roomerror");
+                        } else {
+                            next();
+                        }
+                    },
+                }
+
+const roomErrorPage = { template:  "<div>" +
+                              "<p>Deze room kan niet geladen worden. Waarschijnlijk bestaat deze kamer niet.</p>" +
                               "</div>"
                         }
-
+                        
 const routes = [
-    { path: "/gatekeeper", component: gatekeeperPage },
-    { path: "/room/:id", component: roomPage }
+    { 
+        path: "/gatekeeper",
+        component: gatekeeperPage
+    },
+    { 
+        path: "/room/:id",
+        component: roomPage
+    },
+    {
+        path: "/roomerror",
+        component: roomErrorPage
+    }
 ]
 
 const router = new VueRouter({
@@ -31,13 +69,13 @@ var app = new Vue({
 
 
 var navBar = new Vue({
-    data: {rooms: rooms,
-           roomsFetched: false},
+    data: {rooms: false},
     router
 }).$mount('#navbar')
 
 var userToken;
 var rooms;
+var redirectRoom;
 
 /**
  * Add actions to page buttons 
@@ -56,11 +94,6 @@ function login() {
     $("#login-loading").show();
 }
 
-function showPage(pageId) {
-    $(".page").hide();
-    $("#" + pageId).show();
-}
-
 /*
  * fetch Rooms throught Api
  */
@@ -76,6 +109,12 @@ function showRooms(response) {
     navBar.roomsFetched = true;
     navBar.rooms = rooms;
     console.log(response);
+
+    if (redirectRoom !== undefined) {
+        router.push("/room/" + redirectRoom);
+        redirectRoom = undefined;
+    }
+
 }
 
 /*
@@ -99,7 +138,6 @@ function tokenError(message) {
 function tokenSuccess(token) {
     // Do something with the token
     userToken = token;
-    showPage("page-welcome");
     $("#login-loading").hide();    
     $("#btn-login").hide();
     $("#loggedin-text").html("Ingelogd als " + token.name.first + " " + token.name.last + " (" + token.id + ")");
