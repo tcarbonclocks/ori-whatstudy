@@ -1,5 +1,41 @@
 "use strict";
 
+Vue.component('dropdown-item', {
+    props: ['room'],
+    template: "<router-link class='dropdown-item' v-bind:to='\"/room/\" + room.id'>{{ room.name }}</router-link>"
+    // template: "<a class='dropdown-item'>{{ room.name }}</a>"
+})
+
+const gatekeeperPage = { template: "<div>" +
+                                    "<h2>U bent nog niet ingelogd. I AM THE GATEKEEPER</h2>" +
+                                    "<p>U kunt deze site niet gebruiken zonder (als student of docent van Windesheim Flevoland) ingelogd te zijn.</p>" +
+                                    "</div>" }
+
+const roomPage = { template:  "<div>" +
+                              "<p>Welkom bij room {{ $route.params.id }}</p>" +
+                              "</div>"
+                        }
+
+const routes = [
+    { path: "/gatekeeper", component: gatekeeperPage },
+    { path: "/room/:id", component: roomPage }
+]
+
+const router = new VueRouter({
+    routes // short for `routes: routes`
+})
+
+var app = new Vue({
+    router
+}).$mount('#app')
+
+
+var navBar = new Vue({
+    data: {rooms: rooms,
+           roomsFetched: false},
+    router
+}).$mount('#navbar')
+
 var userToken;
 var rooms;
 
@@ -9,11 +45,15 @@ var rooms;
 function addButtonActions() {
     $(document).ready(function () { 
         $("#btn-login").on("click", function () {
-            getToken();
-            $("#btn-login").hide();
-            $("#login-loading").show();
+            login();
         });
     });
+}
+
+function login() {
+    getToken();
+    $("#btn-login").hide();
+    $("#login-loading").show();
 }
 
 function showPage(pageId) {
@@ -33,8 +73,8 @@ function fetchRooms(token) {
  */
 function showRooms(response) {
     rooms = response;
-    navbarDropdownMenu.rooms = response;
-    navbarDropdown.fetched = true;
+    navBar.roomsFetched = true;
+    navBar.rooms = rooms;
     console.log(response);
 }
 
@@ -66,23 +106,6 @@ function tokenSuccess(token) {
     fetchRooms(userToken);
 }
 
-Vue.component('dropdown-item', {
-    props: ['room'],
-    template: "<a class='dropdown-item' href='#'>{{ room.name }}</a>"
-})
-
-var navbarDropdownMenu = new Vue({
-    el: "#navbarDropdownMenu",
-    data: {rooms: []}
-})
-
-var navbarDropdown = new Vue({
-    el: "#navbarDropdown",
-    data: {
-        fetched: false
-    }
-})
 
 // initialize
 addButtonActions();
-showPage("page-gatekeeper");

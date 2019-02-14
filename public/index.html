@@ -22,7 +22,7 @@
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="fetched">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="roomsFetched">
                               Rooms
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdownMenu">
@@ -46,14 +46,14 @@
             </div>
         </nav>
         <main>
-            <div class="page" id="page-gatekeeper">
-                <h2>U bent nog niet ingelogd</h2>
-                <p>U kunt deze site niet gebruiken zonder (als student of docent van Windesheim Flevoland) ingelogd te zijn.</p>
+            <!-- <div class="page" id="page-gatekeeper"> -->
+                <!-- <h2>U bent nog niet ingelogd</h2> -->
+                <!-- <p>U kunt deze site niet gebruiken zonder (als student of docent van Windesheim Flevoland) ingelogd te zijn.</p> -->
+            <!-- </div> -->
+
+            <div id="app">
+                <router-view></router-view>
             </div>
-            <div class="page" id="page-welcome">
-                <h2>Welkom op mijn site.</h2>
-            </div>
-            <div id="app"></div>
         </main>
 
         <!-- Modal 1: login failure -->
@@ -85,6 +85,7 @@
         <script src="https://ori.clow.nl/cdn/bootstrap/4.2.1/js/bootstrap.min.js"></script> 
 
         <script src="https://ori.clow.nl/cdn/vue/2.5.22/vue.js"></script> 
+        <script src="https://ori.clow.nl/cdn/vue-router/3.0.2/vue-router.js"></script>
 
         <script src="https://ori.clow.nl/cdn/api.js"></script>
         <script src="js/whatstudy.js"></script>
