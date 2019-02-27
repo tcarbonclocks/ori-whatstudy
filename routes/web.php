@@ -16,4 +16,4 @@ Route::get('/', function () {
 
 });
 
-$router->get('rooms/check/{token}', ['uses' => 'RoomController@showAllRooms']);
+// $router->get('rooms/check/{token}', ['uses' => 'RoomController@showAllRooms']);
