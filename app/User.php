@@ -10,7 +10,7 @@ class User extends Model
         'name', 'user_type_id'
     ];
 
-    public function message()
+    public function messages()
     {
         return $this->hasMany('App\Message');
     }
