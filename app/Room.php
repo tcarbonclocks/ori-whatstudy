@@ -23,7 +23,7 @@ class Room extends Model
      */
     protected $hidden = [];
 
-    public function messages()
+    public function message()
     {
         return $this->hasMany('App\Message')->with('user');
     }
