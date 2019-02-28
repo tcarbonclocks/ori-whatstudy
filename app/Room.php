@@ -22,4 +22,9 @@ class Room extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
 }
