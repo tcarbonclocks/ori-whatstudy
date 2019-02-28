@@ -8,7 +8,7 @@ Vue.component('dropdown-item', {
 
 Vue.component('message', {
     props: ['message'],
-    template: "<div><p>{{ message.user_id }} : {{ message.description }}</p></div>"
+    template: "<div><div><p><b>{{ message.user.name }} ({{ message.user_id }})</b></p></div><div><p>{{ message.description }}</p></div></div>"
 })
 
 const welcomePage = {
