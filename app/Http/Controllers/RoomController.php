@@ -39,7 +39,6 @@ class RoomController extends Controller
 
         $page = $request->page;
         $messages = $room->messages->sortByDesc('created_at')->forPage($page, 20)->reverse()->values();
-        $messages->load('user');
         return response()->json($messages);
     }
 
