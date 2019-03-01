@@ -39,8 +39,16 @@ class MessageController extends Controller
             return response()->json('Unauthorized token', 401);
         }
 
-        $newsletter = Newsletter::create($request->all());
-        return response()->json($newsletter, 201);
+        $rules = [
+            'user_id'=> 'required|max:10',
+            'room_id'=> 'required|max:10',
+            'description'=> 'required',
+        ];
+        $this->validate($request, $rules);
+
+        $message = Message::create($request->all());
+
+        return response()->json($message, 201);
     }
 
     /**
