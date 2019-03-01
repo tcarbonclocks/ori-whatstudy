@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
+    protected $keyType = 'string';
+
     protected $fillable = [
         'name', 'user_type_id'
     ];
