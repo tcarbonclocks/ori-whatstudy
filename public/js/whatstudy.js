@@ -51,6 +51,7 @@ const gatekeeperPage = {
 const roomPage = {
     template: `
     <div>
+        <h2>Room {{ $route.params.id }}: {{ this.$parent.rooms[$route.params.id - 1].name }}</h2>
         <message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>
     </div>
     `,
@@ -63,8 +64,8 @@ const roomPage = {
         } else if (roomNumber >= (rooms.length + 1) || roomNumber <= 0) {
             router.push("/roomerror");
         } else {
-            next();
             fetchMessages(userToken, roomNumber, 1);
+            next();
         }
     },
     beforeRouteUpdate: (to, from, next) => {
@@ -76,8 +77,8 @@ const roomPage = {
         } else if (roomNumber >= (rooms.length + 1) || roomNumber <= 0) {
             router.push("/roomerror");
         } else {
-            next();
             fetchMessages(userToken, roomNumber, 1);
+            next();
         }
     },
 }
@@ -114,7 +115,10 @@ const router = new VueRouter({
 })
 
 var app = new Vue({
-    data: { messages: false },
+    data: { 
+        messages: false,
+        rooms: false,
+    },
     router
 }).$mount('#app')
 
@@ -157,8 +161,8 @@ function fetchRooms(token) {
  */
 function showRooms(response) {
     rooms = response;
-    navBar.roomsFetched = true;
-    navBar.rooms = rooms;
+    app.rooms = response;
+    navBar.rooms = response;
     console.log(response);
 
     if (redirect !== undefined) {
