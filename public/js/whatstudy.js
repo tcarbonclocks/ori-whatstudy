@@ -50,7 +50,7 @@ const roomPage = {
                 <button v-on:click="this.fetchMessages(this.userToken, this.roomNumber, 1)" type="button" class="btn btn-primary ml-auto"><i class="fas fa-sync-alt"></i></button>
             </li>
             <message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>
-            <li class="list-group-item fixed-bottom fixed-bottom-600px"><input class="form-control" type="text" placeholder="Druk op Enter om te sturen." id="send-input"></li>
+            <li class="list-group-item fixed-bottom fixed-bottom-600px"><input v-on:keyup.enter="this.getMessageInput" class="form-control" type="text" placeholder="Druk op Enter om te sturen." id="send-input"></li>
         </ul>
     </div>
     `,
@@ -84,9 +84,9 @@ const roomPage = {
 
 const roomErrorPage = {
     template: `
-    < div >
-    <p>Deze room kan niet geladen worden. Waarschijnlijk bestaat deze kamer niet.</p>
-        </div >
+    <div>
+        <p>Deze room kan niet geladen worden. Waarschijnlijk bestaat deze kamer niet.</p>
+    </div>
     `
 }
 
@@ -115,7 +115,7 @@ const router = new VueRouter({
 })
 
 var app = new Vue({
-    data: { 
+    data: {
         messages: false,
         rooms: false,
     },
@@ -197,6 +197,37 @@ function showMessages(response) {
 function errorMessages(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
+}
+
+function getMessageInput() {
+    var messageToSend = document.getElementById("send-input").value;
+    console.log("Message to send: " + messageToSend);
+    sendMessage(messageToSend, userToken, roomNumber, userToken.id)
+}
+
+function sendMessage(message, token, roomID, userID) {
+    var sendData = {
+        user_id: userID,
+        room_id: roomID,
+        description: message
+    }
+    console.log(sendData);
+    var myApi = new Api('POST', '/messages/send/' + token.token, sendData);
+    myApi.execute(sendMessageSuccess, sendMessageError);
+}
+
+function sendMessageSuccess(response) {
+    var messageInput = document.getElementById("send-input");
+
+    messageInput.value = "";
+    console.log("Message sent: " + response);
+    fetchMessages(userToken, roomNumber, 1);
+}
+
+function sendMessageError(statusCode, errorMessage) {
+    console.log(statusCode);
+    console.log(errorMessage);
+    $('#send-fail-modal').modal('show')
 }
 
 function tokenError(message) {
