@@ -8,3 +8,12 @@ body {
 #logo-picture {
     height: 30px;
 }
+
+.sticky-offset {
+    top: 56px;
+}
+
+.fixed-bottom-600px {
+    margin: auto;
+    max-width: 600px;
+}

@@ -11,10 +11,10 @@
     </head>
     <body>
         <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light" id="navbar">
-            <a class="navbar-brand" href="#">
-                <img src="img/windesheimflevoland-logo.png" class="d-inline-block align-top" id="logo-picture" alt="">
-                WhatStudy 
-            </a>
+            <router-link class='navbar-brand' v-bind:to="{ name: 'welcomePage'}">
+                <!-- <img src="img/windesheimflevoland-logo.png" class="d-inline-block align-top" id="logo-picture" alt=""> -->
+                WhatStudy
+            </router-link>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

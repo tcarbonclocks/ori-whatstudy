@@ -44,10 +44,10 @@ const gatekeeperPage = {
 const roomPage = {
     template: `
         <div>
-            <h2>Room {{ $route.params.id }}: {{ this.$parent.rooms[$route.params.id - 1].name }}</h2>
-
-        <ul class="list-group">
+        <ul class="list-group" id="chat-container">
+            <li class="list-group-item sticky-top sticky-offset"><h2>Room {{ $route.params.id }}: {{ this.$parent.rooms[$route.params.id - 1].name }}</li>
             <message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>
+            <li class="list-group-item fixed-bottom fixed-bottom-600px"><input class="form-control" type="text" placeholder="Werkt nog niet"></li>
         </ul>
     </div>
     `,
@@ -90,7 +90,8 @@ const roomErrorPage = {
 const routes = [
     {
         path: "/",
-        component: welcomePage
+        component: welcomePage,
+        name: "welcomePage"
     },
     {
         path: "/gatekeeper",
