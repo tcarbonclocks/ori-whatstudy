@@ -25,4 +25,4 @@ Route::get('messages/check/{token}/{message}', 'MessageController@showOne');
 Route::get('users/check/{token}/{user}', 'UserController@showOne');
 Route::get('rooms/checkMessages/{token}/{room}', 'RoomController@showRoomMessages');
 
-Route::post('messages/send/{token}/{message}', 'MessageController@sendMessage');
+Route::post('messages/send/{token}', 'MessageController@sendMessage');
