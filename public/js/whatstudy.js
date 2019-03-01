@@ -2,41 +2,58 @@
 
 Vue.component('dropdown-item', {
     props: ['room'],
-    template: "<router-link class='dropdown-item' v-bind:to='\"/room/\" + room.id'>{{ room.name }}</router-link>"
+    template: `
+    <router-link class='dropdown-item' v-bind:to='"/room/" + room.id'>{{ room.name }}</router-link>
+    `
     // template: "<a class='dropdown-item'>{{ room.name }}</a>"
 })
 
 Vue.component('message', {
     props: ['message'],
-    template: "<div><div><p><b>{{ message.user.name }} ({{ message.user_id }})</b></p></div><div><p>{{ message.description }}</p></div></div>"
+    template: `
+    <div>
+        <div>
+            <p><b>{{ message.user.name }} ({{ message.user_id }})</b></p>
+        </div>
+        <div>
+            <p>{{ message.description }}</p>
+        </div>
+    </div>
+    `
 })
 
 const welcomePage = {
-    template: "<div>" +
-        "<p>Welkom bij WhatStudy.</p>" +
-        "</div>",
+    template: `
+        <div>
+            <p>Welkom bij WhatStudy.</p>
+        </div>
+        `,
     beforeRouteEnter: (to, from, next) => {
-        console.log("Welcome to WhatStudy");
         if (rooms === undefined) {
             router.push("/gatekeeper");
             redirect = "/";
         } else {
             next();
+            console.log("Welcome to WhatStudy");
         }
     }
 }
 
 const gatekeeperPage = {
-    template: "<div>" +
-        "<h2>U bent nog niet ingelogd. I AM THE GATEKEEPER</h2>" +
-        "<p>U kunt deze site niet gebruiken zonder (als student of docent van Windesheim Flevoland) ingelogd te zijn.</p>" +
-        "</div>"
+    template: `
+    <div>
+        <h2>U bent nog niet ingelogd.</h2>
+        <p>U kunt deze site niet gebruiken zonder (als student of docent van Windesheim Flevoland) ingelogd te zijn.</p>
+    </div>
+    `
 }
 
 const roomPage = {
-    template: "<div>" +
-    "<message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>" + 
-    "</div>",
+    template: `
+    <div>
+        <message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>
+    </div>
+    `,
     beforeRouteEnter: (to, from, next) => {
         var roomNumber = to.params.id;
         console.log("Connecting to room " + roomNumber);
@@ -66,9 +83,11 @@ const roomPage = {
 }
 
 const roomErrorPage = {
-    template: "<div>" +
-        "<p>Deze room kan niet geladen worden. Waarschijnlijk bestaat deze kamer niet.</p>" +
-        "</div>"
+    template: `
+        <div>
+            <p>Deze room kan niet geladen worden. Waarschijnlijk bestaat deze kamer niet.</p>
+        </div>
+        `
 }
 
 const routes = [
