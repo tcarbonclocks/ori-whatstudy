@@ -33,6 +33,16 @@ class MessageController extends Controller
         return response()->json($message);
     }
 
+    public function sendMessage($token, Request $request)
+    {
+        if (!Token::check($token)) {
+            return response()->json('Unauthorized token', 401);
+        }
+
+        $newsletter = Newsletter::create($request->all());
+        return response()->json($newsletter, 201);
+    }
+
     /**
      * Display a listing of the resource.
      *
