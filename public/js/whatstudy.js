@@ -223,7 +223,6 @@ function sendMessageSuccess(response) {
 
     messageInput.value = "";
     console.log("Message sent: " + response);
-    fetchMessages(userToken, roomNumber, 1);
 }
 
 function sendMessageError(statusCode, errorMessage) {
