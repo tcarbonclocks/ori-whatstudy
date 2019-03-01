@@ -11,7 +11,7 @@ Vue.component('dropdown-item', {
 Vue.component('message', {
     props: ['message'],
     template: `
-    <li class="list-group-item"><b>{{ message.user.name }} ({{ message.user_id }}) </b></br> {{ message.description }}</li>
+    <li class="list-group-item"><b>{{ message.user.name }} ({{ message.user_id }}), {{ message.created_at }} </b></br> {{ message.description }}</li>
     `
 })
 
