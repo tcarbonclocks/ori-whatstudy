@@ -1,11 +1,7 @@
 body {
-    display: flex;
     padding-top: 65px;
     background-color: #ccc;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
+    margin: auto;
     max-width: 600px;
 }
 
