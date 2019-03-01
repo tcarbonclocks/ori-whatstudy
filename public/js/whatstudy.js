@@ -11,14 +11,7 @@ Vue.component('dropdown-item', {
 Vue.component('message', {
     props: ['message'],
     template: `
-    <div>
-        <div>
-            <p><b>{{ message.user.name }} ({{ message.user_id }})</b></p>
-        </div>
-        <div>
-            <p>{{ message.description }}</p>
-        </div>
-    </div>
+    <li class="list-group-item"><b>{{ message.user.name }} ({{ message.user_id }}) </b></br> {{ message.description }}</li>
     `
 })
 
@@ -50,9 +43,12 @@ const gatekeeperPage = {
 
 const roomPage = {
     template: `
-    <div>
-        <h2>Room {{ $route.params.id }}: {{ this.$parent.rooms[$route.params.id - 1].name }}</h2>
-        <message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>
+        <div>
+            <h2>Room {{ $route.params.id }}: {{ this.$parent.rooms[$route.params.id - 1].name }}</h2>
+
+        <ul class="list-group">
+            <message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>
+        </ul>
     </div>
     `,
     beforeRouteEnter: (to, from, next) => {
@@ -85,10 +81,10 @@ const roomPage = {
 
 const roomErrorPage = {
     template: `
-        <div>
-            <p>Deze room kan niet geladen worden. Waarschijnlijk bestaat deze kamer niet.</p>
-        </div>
-        `
+    < div >
+    <p>Deze room kan niet geladen worden. Waarschijnlijk bestaat deze kamer niet.</p>
+        </div >
+    `
 }
 
 const routes = [
