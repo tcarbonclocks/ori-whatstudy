@@ -162,8 +162,8 @@ function fetchRooms(token) {
  */
 function showRooms(response) {
     rooms = response;
-    app.rooms = response;
-    navBar.rooms = response;
+    app.rooms = rooms;
+    navBar.rooms = rooms;
     console.log(response);
 
     if (redirect !== undefined) {
