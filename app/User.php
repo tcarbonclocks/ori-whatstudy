@@ -16,4 +16,9 @@ class User extends Model
     {
         return $this->hasMany('App\Message');
     }
+
+    public function usertype()
+    {
+        return $this->belongsTo('App\UserType');
+    }
 }
