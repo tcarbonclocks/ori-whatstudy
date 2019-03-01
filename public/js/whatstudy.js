@@ -169,6 +169,8 @@ function showRooms(response) {
     if (redirect !== undefined) {
         router.push(redirect);
         redirect = undefined;
+    } else {
+        this.$router.go();
     }
 
 }
