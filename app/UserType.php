@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserType extends Model
 {
-    public $table = 'user_types';
-
     /**
      * The attributes that are mass assignable.
      *
