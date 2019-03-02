@@ -184,10 +184,7 @@ function showRooms(response) {
     if (redirect !== undefined) {
         router.push(redirect);
         redirect = undefined;
-    } else {
-        this.$router.go();
     }
-
 }
 
 /*
@@ -205,7 +202,7 @@ function fetchMessages(token, roomID, page = 1) {
 
 function showMessages(response) {
     console.log(response);
-    app.messages = Array.from(response);
+    app.messages = Array.from(response).reverse();
 }
 
 /*
