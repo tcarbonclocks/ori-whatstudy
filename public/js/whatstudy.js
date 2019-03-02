@@ -211,6 +211,7 @@ function showMessages(response) {
 function errorMessages(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
+    $('#load-fail-modal').modal('show');
 }
 
 function getMessageInput() {
