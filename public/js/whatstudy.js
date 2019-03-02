@@ -14,8 +14,15 @@ Vue.component('message', {
     <li class="list-group-item"><b>{{ message.user.name }} ({{ message.user_id }}, {{ message.user.usertype.name }}), {{ convertTime(message.created_at) }} </b></br> {{ message.description }}</li>
     `,
     methods: {
+        /**
+         * Converts SQL time (which is UTC) to JS time and returns the local time
+         * @param {string} time SQL datetime
+         */
         convertTime(time) {
-            var date = new Date(time);
+            let dateTimeParts = time.split(/[- :]/); // regular expression split that creates array with: year, month, day, hour, minutes, seconds values
+            dateTimeParts[1]--; // monthIndex begins with 0 for January and ends with 11 for December so we need to decrement by one
+
+            var date = new Date(Date.UTC(...dateTimeParts)); // our Date object
             return date.toLocaleString('nl-nl', { timeZone: 'Europe/Amsterdam' });
         }
     }
