@@ -12,6 +12,8 @@
     "devDependencies": {
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
+        "browser-sync": "^2.26.3",
+        "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
@@ -24,7 +26,8 @@
         "vue-template-compiler": "^2.6.8"
     },
     "dependencies": {
-        "package.json": "^2.0.1",
+        "bootstrap-vue": "^2.0.0-rc.13",
+        "dotenv": "^6.2.0",
         "vue-router": "^3.0.2"
     }
 }
