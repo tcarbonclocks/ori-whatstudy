@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="nl">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ORI 3 - Whatstudy</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://ori.clow.nl/cdn/bootstrap/4.2.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/whatstudy.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ORI 3 - Whatstudy</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://ori.clow.nl/cdn/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/whatstudy.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id=app>
         <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light" id="navbar">
             <router-link class='navbar-brand' v-bind:to="{ name: 'welcomePage'}">
                 <!-- <img src="img/windesheimflevoland-logo.png" class="d-inline-block align-top" id="logo-picture" alt=""> -->
                 WhatStudy
             </router-link>
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="rooms">
-                              Rooms
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdownMenu">
-                                <dropdown-item v-for="room in rooms" v-bind:room="room" v-bind:key="room.id"></dropdown-item>
-                            </div>
-                          </li>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="rooms">
+                            Rooms
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdownMenu">
+                            <dropdown-item v-for="room in rooms" v-bind:room="room" v-bind:key="room.id">
+                            </dropdown-item>
+                        </div>
+                    </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item">
@@ -46,23 +53,25 @@
                 </ul>
             </div>
         </nav>
-        <main id="app">
+        <main>
             <router-view></router-view>
         </main>
 
         <!-- Modal 1: login failure -->
-        <div class="modal fade" id="login-fail-modal" tabindex="-1" role="dialog" aria-labelledby="loginFailModalId" aria-hidden="true">
+        <div class="modal fade" id="login-fail-modal" tabindex="-1" role="dialog" aria-labelledby="loginFailModalId"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Inloggen niet gelukt</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         Het inloggen is niet gelukt.
-                        Probeer in te loggen op <a href="https://epic.clow.nl/login" target="_blank">EPIC</a> en probeer het vervolgens opnieuw.
+                        Probeer in te loggen op <a href="https://epic.clow.nl/login" target="_blank">EPIC</a> en probeer
+                        het vervolgens opnieuw.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Sluiten</button>
@@ -72,17 +81,19 @@
         </div>
 
         <!-- Modal 2: message send failure. -->
-        <div class="modal fade" id="send-fail-modal" tabindex="-1" role="dialog" aria-labelledby="sendFailModalId" aria-hidden="true">
+        <div class="modal fade" id="send-fail-modal" tabindex="-1" role="dialog" aria-labelledby="sendFailModalId"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Bericht verzenden niet gelukt</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
-                        Het verzenden van het bericht is niet gelukt. Meestal kan dit gebeuren als de inlogsessie is verlopen. Als dit het geval is, kunt u de pagina vernieuwen.
+                        Het verzenden van het bericht is niet gelukt. Meestal kan dit gebeuren als de inlogsessie is
+                        verlopen. Als dit het geval is, kunt u de pagina vernieuwen.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Sluiten</button>
@@ -92,17 +103,19 @@
         </div>
 
         <!-- Modal 3: message load failure. -->
-        <div class="modal fade" id="load-fail-modal" tabindex="-1" role="dialog" aria-labelledby="loadFailModalId" aria-hidden="true">
+        <div class="modal fade" id="load-fail-modal" tabindex="-1" role="dialog" aria-labelledby="loadFailModalId"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Berichten laden niet gelukt</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
-                        Het vernieuwen van de berichten is niet gelukt; dit kan komen doordat de inlogsessie is verlopen. In dit geval is het aangeraden om de pagina te vernieuwen.
+                        Het vernieuwen van de berichten is niet gelukt; dit kan komen doordat de inlogsessie is
+                        verlopen. In dit geval is het aangeraden om de pagina te vernieuwen.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Sluiten</button>
@@ -110,19 +123,21 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-        <!-- jQuery first, then Bootstrap JS -->
+    <!-- jQuery first, then Bootstrap JS -->
 
-        <script src="https://ori.clow.nl/cdn/jquery/3.3.1/jquery-3.3.1.min.js"></script> 
-        <script src="https://ori.clow.nl/cdn/bootstrap/4.2.1/js/bootstrap.min.js"></script> 
+    <script src="https://ori.clow.nl/cdn/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="https://ori.clow.nl/cdn/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
-        <script src="https://ori.clow.nl/cdn/vue/2.5.22/vue.js"></script> 
-        <script src="https://ori.clow.nl/cdn/vue-router/3.0.2/vue-router.js"></script>
+    <script src="https://ori.clow.nl/cdn/vue/2.5.22/vue.js"></script>
+    <script src="https://ori.clow.nl/cdn/vue-router/3.0.2/vue-router.js"></script>
 
-        <script src="https://ori.clow.nl/cdn/api.js"></script>
-        <script src="js/whatstudy.js"></script>
+    <script src="https://ori.clow.nl/cdn/api.js"></script>
+    <script src="js/whatstudy.js"></script>
 
-    </body>
+</body>
+
 </html>

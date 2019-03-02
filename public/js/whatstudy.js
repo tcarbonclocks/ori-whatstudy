@@ -136,11 +136,6 @@ var app = new Vue({
 }).$mount('#app')
 
 
-var navBar = new Vue({
-    data: { rooms: false },
-    router
-}).$mount('#navbar')
-
 var userToken;
 var rooms;
 var redirect;
@@ -178,7 +173,6 @@ function fetchRooms(token) {
 function showRooms(response) {
     rooms = response;
     app.rooms = rooms;
-    navBar.rooms = rooms;
     console.log(response);
 
     if (redirect !== undefined) {
