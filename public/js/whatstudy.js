@@ -197,6 +197,7 @@ function fetchMessages(token, roomID, page = 1) {
 function showMessages(response) {
     console.log(response);
     app.messages = Array.from(response).reverse();
+    window.scrollTo(0,document.querySelector("#chat-container").scrollHeight);
 }
 
 /*
