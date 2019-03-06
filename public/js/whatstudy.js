@@ -1,32 +1,9 @@
+/*jshint esversion: 6 */
 "use strict";
 
-Vue.component('dropdown-item', {
-    props: ['room'],
-    template: `
-    <router-link class='dropdown-item' v-bind:to='"/room/" + room.id'>{{ room.name }}</router-link>
-    `
-    // template: "<a class='dropdown-item'>{{ room.name }}</a>"
-})
 
-Vue.component('message', {
-    props: ['message'],
-    template: `
-    <li class="list-group-item message"><b>{{ message.user.name }} ({{ message.user_id }}, {{ message.user.usertype.name }}), {{ convertTime(message.created_at) }} </b></br> {{ message.description }}</li>
-    `,
-    methods: {
-        /**
-         * Converts SQL time (which is UTC) to JS time and returns the local time
-         * @param {string} time SQL datetime
-         */
-        convertTime(time) {
-            let dateTimeParts = time.split(/[- :]/); // regular expression split that creates array with: year, month, day, hour, minutes, seconds values
-            dateTimeParts[1]--; // monthIndex begins with 0 for January and ends with 11 for December so we need to decrement by one
 
-            var date = new Date(Date.UTC(...dateTimeParts)); // our Date object
-            return date.toLocaleString('nl-nl', { timeZone: 'Europe/Amsterdam' });
-        }
-    }
-})
+
 
 const welcomePage = {
     template: `
@@ -43,7 +20,7 @@ const welcomePage = {
             console.log("Welcome to WhatStudy");
         }
     }
-}
+};
 
 const gatekeeperPage = {
     template: `
@@ -52,7 +29,7 @@ const gatekeeperPage = {
         <p>U kunt deze site niet gebruiken zonder (als student of docent van Windesheim Flevoland) ingelogd te zijn.</p>
     </div>
     `
-}
+};
 
 const roomPage = {
     template: `
@@ -93,7 +70,7 @@ const roomPage = {
             next();
         }
     },
-}
+};
 
 const roomErrorPage = {
     template: `
@@ -101,7 +78,7 @@ const roomErrorPage = {
         <p>Deze room kan niet geladen worden. Waarschijnlijk bestaat deze kamer niet.</p>
     </div>
     `
-}
+};
 
 const routes = [
     {
@@ -121,11 +98,39 @@ const routes = [
         path: "/roomerror",
         component: roomErrorPage
     }
-]
+];
 
 const router = new VueRouter({
     routes // short for `routes: routes`
-})
+});
+
+Vue.component('dropdown-item', {
+    props: ['room'],
+    template: `
+    <router-link class='dropdown-item' v-bind:to='"/room/" + room.id'>{{ room.name }}</router-link>
+    `
+    // template: "<a class='dropdown-item'>{{ room.name }}</a>"
+});
+
+Vue.component('message', {
+    props: ['message'],
+    template: `
+    <li class="list-group-item message"><b>{{ message.user.name }} ({{ message.user_id }}, {{ message.user.usertype.name }}), {{ convertTime(message.created_at) }} </b></br> {{ message.description }}</li>
+    `,
+    methods: {
+        /**
+         * Converts SQL time (which is UTC) to JS time and returns the local time
+         * @param {string} time SQL datetime
+         */
+        convertTime(time) {
+            let dateTimeParts = time.split(/[- :]/); // regular expression split that creates array with: year, month, day, hour, minutes, seconds values
+            dateTimeParts[1]--; // monthIndex begins with 0 for January and ends with 11 for December so we need to decrement by one
+
+            var date = new Date(Date.UTC(...dateTimeParts)); // our Date object
+            return date.toLocaleString('nl-nl', { timeZone: 'Europe/Amsterdam' });
+        }
+    }
+});
 
 var app = new Vue({
     data: {
@@ -133,8 +138,7 @@ var app = new Vue({
         rooms: false,
     },
     router
-}).$mount('#app')
-
+}).$mount('#app');
 
 var userToken;
 var rooms;
@@ -149,7 +153,7 @@ function addButtonActions() {
 
     loginButton.addEventListener("click", function () {
         login();
-    })
+    });
 }
 
 
@@ -212,7 +216,7 @@ function errorMessages(statusCode, errorMessage) {
 function getMessageInput() {
     var messageToSend = document.getElementById("send-input").value;
     console.log("Message to send: " + messageToSend);
-    sendMessage(messageToSend, userToken, roomNumber, userToken.id)
+    sendMessage(messageToSend, userToken, roomNumber, userToken.id);
 }
 
 function sendMessage(message, token, roomID, userID) {
@@ -220,7 +224,7 @@ function sendMessage(message, token, roomID, userID) {
         user_id: userID,
         room_id: roomID,
         description: message
-    }
+    };
     console.log(sendData);
     var myApi = new Api('POST', '/messages/send/' + token.token, sendData);
     myApi.execute(sendMessageSuccess, sendMessageError);
@@ -237,7 +241,7 @@ function sendMessageSuccess(response) {
 function sendMessageError(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
-    $('#send-fail-modal').modal('show')
+    $('#send-fail-modal').modal('show');
 }
 
 function tokenError(message) {
