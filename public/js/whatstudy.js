@@ -1,16 +1,15 @@
 /*jshint esversion: 6 */
 "use strict";
-
-
-
-
-
+/**
+ * This is the template for the welcome page, which is the page a logged in user will see if they're not on any room
+ */
 const welcomePage = {
     template: `
         <div>
-            <p>Welkom bij WhatStudy.</p>
+            <p>Welkom bij WhatStudy - door Avinash Badloe.</p>
         </div>
         `,
+    // This function checks if the user is logged in and if not, sends the user to the gatekeeper page.
     beforeRouteEnter: (to, from, next) => {
         if (rooms === undefined) {
             router.push("/gatekeeper");
@@ -22,6 +21,11 @@ const welcomePage = {
     }
 };
 
+
+/**
+ * This is the template for the gatekeeper page. 
+ * It's made to warn people that they can't access this page without logging in.
+ */
 const gatekeeperPage = {
     template: `
     <div>
@@ -31,6 +35,10 @@ const gatekeeperPage = {
     `
 };
 
+/**
+ * This is the template for the room page.
+ * This page is used for displaying chat messages and letting the user chat.
+ */
 const roomPage = {
     template: `
         <div>
@@ -44,6 +52,7 @@ const roomPage = {
         </ul>
     </div>
     `,
+    // Before changing rooms and entering the page, a function is ran to check if the user is logged in, locating to a correct page and refreshes the messages.
     beforeRouteEnter: (to, from, next) => {
         roomNumber = to.params.id;
         console.log("Connecting to room " + roomNumber);
@@ -72,6 +81,7 @@ const roomPage = {
     },
 };
 
+// This page appears when an incorrect room number is entered.
 const roomErrorPage = {
     template: `
     <div>
@@ -80,6 +90,10 @@ const roomErrorPage = {
     `
 };
 
+
+/**
+ * Routes for Vue-Router
+ */
 const routes = [
     {
         path: "/",
@@ -88,22 +102,31 @@ const routes = [
     },
     {
         path: "/gatekeeper",
-        component: gatekeeperPage
+        component: gatekeeperPage,
+        name: "gatekeeperPage"
     },
     {
         path: "/room/:id",
-        component: roomPage
+        component: roomPage,
+        name: "roomPage"
     },
     {
         path: "/roomerror",
-        component: roomErrorPage
+        component: roomErrorPage,
+        name: "roomErrorPage"
     }
 ];
 
+/**
+ * Initializing vue-router with routes
+ */
 const router = new VueRouter({
     routes // short for `routes: routes`
 });
 
+/**
+ * Template for the Bootstrap dropdown for the room list.
+ */
 Vue.component('dropdown-item', {
     props: ['room'],
     template: `
@@ -112,6 +135,9 @@ Vue.component('dropdown-item', {
     // template: "<a class='dropdown-item'>{{ room.name }}</a>"
 });
 
+/**
+ * Template for a message on the room page.
+ */
 Vue.component('message', {
     props: ['message'],
     template: `
@@ -132,6 +158,9 @@ Vue.component('message', {
     }
 });
 
+/**
+ * Core initialisation for Vue.js. It's linked to the entire page.
+ */
 var app = new Vue({
     data: {
         messages: false,
@@ -140,6 +169,7 @@ var app = new Vue({
     router
 }).$mount('#app');
 
+// Global variables. Not sure whether to turn them into Vue data or not.
 var userToken;
 var rooms;
 var redirect;
@@ -157,22 +187,30 @@ function addButtonActions() {
 }
 
 
-
+/**
+ * Wrapper around the getToken function.
+ * Uses jQuery, but can probably use Vue (https://github.com/tcarbonclocks/ori-whatstudy/issues/3)
+ */
 function login() {
     getToken();
     $("#btn-login").hide();
     $("#login-loading").show();
 }
 
-/*
- * fetch Rooms throught Api
+/**
+ * Function that calls the API to get a list of rooms.
+ * @param {string} token the user token, which is needed for authentication for the API.
  */
 function fetchRooms(token) {
     var myApi = new Api('GET', 'rooms/check/' + token.token, null);
     myApi.execute(showRooms, errorRooms);
 }
-/*
- * show recieved Rooms
+
+/**
+ * Assigns the rooms to a variable and a Vue data value.
+ * Also sends the user back to the welcome page or room page, if the variable 'redirect' is defined.
+ * Technically, the term 'show' is misleading, since Vue does all the showing.
+ * @param {*} response response from the API
  */
 function showRooms(response) {
     rooms = response;
@@ -185,27 +223,42 @@ function showRooms(response) {
     }
 }
 
-/*
- * error fetching Rooms
+/**
+ * Function that runs if the rooms can't be fetched.
+ * @param {*} statusCode status code, like 401 or 404.
+ * @param {*} errorMessage error message, like 'Unauthorized'.
  */
 function errorRooms(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
 }
 
+/**
+ * Function that calls the API to fetch a list of messages.
+ * @param {*} token User token, needed for authentication with the API.
+ * @param {*} roomID Room ID
+ * @param {*} page Page number, defaults to 1. Can be used later for loading more messages.
+ */
 function fetchMessages(token, roomID, page = 1) {
     var myApi = new Api('GET', 'rooms/checkMessages/' + token.token + '/' + roomID + '?page=' + page, null);
     myApi.execute(showMessages, errorMessages);
 }
 
+/**
+ * Assigns the messages to a Vue data value.
+ * Technically, the term 'show' is misleading, since Vue does all the showing.
+ * @param {*} response Response from the API
+ */
 function showMessages(response) {
     console.log(response);
     app.messages = Array.from(response).reverse();
     window.scrollTo(0,document.querySelector("#chat-container").scrollHeight);
 }
 
-/*
- * error fetching Messages
+/**
+ * Function that runs if the messages can't be fetched.
+ * @param {*} statusCode status code, like 401 or 404.
+ * @param {*} errorMessage error message, like 'Unauthorized'.
  */
 function errorMessages(statusCode, errorMessage) {
     console.log(statusCode);
@@ -213,12 +266,22 @@ function errorMessages(statusCode, errorMessage) {
     $('#load-fail-modal').modal('show');
 }
 
+/**
+ * Gets the value from the message input and sends it to the API function.
+ */
 function getMessageInput() {
     var messageToSend = document.getElementById("send-input").value;
     console.log("Message to send: " + messageToSend);
     sendMessage(messageToSend, userToken, roomNumber, userToken.id);
 }
 
+/**
+ * Function that uses the API to send a message.
+ * @param {string} message Message to be sent
+ * @param {*} token User token, needed for authentication with the API
+ * @param {*} roomID Room ID to send the message to
+ * @param {*} userID User ID to send the message as
+ */
 function sendMessage(message, token, roomID, userID) {
     var sendData = {
         user_id: userID,
@@ -230,6 +293,11 @@ function sendMessage(message, token, roomID, userID) {
     myApi.execute(sendMessageSuccess, sendMessageError);
 }
 
+/**
+ * Function that runs when a message has been succesfully sent.
+ * Refreshes the room and empties the message input.
+ * @param {*} response Response from the API
+ */
 function sendMessageSuccess(response) {
     var messageInput = document.getElementById("send-input");
 
@@ -238,12 +306,21 @@ function sendMessageSuccess(response) {
     fetchMessages(userToken, roomNumber, 1);
 }
 
+/**
+ * Function that runs when a message can't be succesfully sent.
+ * @param {*} statusCode status code, like 401 or 404.
+ * @param {*} errorMessage error message, like 'Unauthorized'.
+ */
 function sendMessageError(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
     $('#send-fail-modal').modal('show');
 }
 
+/**
+ * Function that runs when logging in fails.
+ * @param {*} message Error message from the API.
+ */
 function tokenError(message) {
     // Do something with the message
     console.log("Token error:" + message);
@@ -254,6 +331,11 @@ function tokenError(message) {
     $("#btn-login").show();
 }
 
+/**
+ * If logging in is succesful, the token is stored and the rooms are fetched.
+ * Again, I could replace the jQuery with Vue (https://github.com/tcarbonclocks/ori-whatstudy/issues/3).
+ * @param {*} token the user token.
+ */
 function tokenSuccess(token) {
     // Do something with the token
     userToken = token;
