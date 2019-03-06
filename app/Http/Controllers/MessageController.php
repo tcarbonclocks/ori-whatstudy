@@ -40,7 +40,7 @@ class MessageController extends Controller
         }
 
         $rules = [
-            'user_id'=> 'required|max:12',
+            'user_id'=> 'required|max:11',
             'room_id'=> 'required|max:10',
             'description'=> 'required',
         ];
