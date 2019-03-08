@@ -66,7 +66,7 @@ const roomPage = {
         <ul class="list-group" id="chat-container">
             <li class="list-group-item sticky-top sticky-offset chat-header d-flex p-2" id="chat-header">
                 <h2 >Room {{ $route.params.id }}: {{ this.$parent.rooms[$route.params.id - 1].name }}</h2>
-                <button v-on:click="this.fetchMessages(this.userToken, this.roomNumber, 1)" type="button" class="btn btn-primary ml-auto" id="refreshButton"><i class="fas fa-sync-alt"></i></button>
+                <button v-on:click="this.fetchMessages(this.userToken, this.roomNumber, 1)" type="button" class="btn btn-primary ml-auto" id="refresh-button"><i class="fas fa-sync-alt"></i></button>
             </li>
             <message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>
             <li class="list-group-item fixed-bottom fixed-bottom-600px"><input v-on:keyup.enter="this.getMessageInput" class="form-control" type="text" placeholder="Druk op Enter om te sturen." id="send-input"></li>
