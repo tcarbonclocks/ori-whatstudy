@@ -241,6 +241,8 @@ function showRooms(response) {
     if (redirect !== undefined) {
         router.push(redirect);
         redirect = undefined;
+    } else {
+        router.push("/");
     }
 }
 
