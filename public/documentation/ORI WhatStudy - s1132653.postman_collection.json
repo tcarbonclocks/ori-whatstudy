@@ -1,0 +1,615 @@
+{
+	"info": {
+		"_postman_id": "07f2e303-b152-4a40-a407-3aef0fdbcfd7",
+		"name": "ORI WhatStudy - s1132653",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Inloggen op EPIC en token verkrijgen",
+			"item": [
+				{
+					"name": "Get CSRF Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "173223b4-9ae8-4c49-a0e0-82d333895dea",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"responseHTML = cheerio(pm.response.text()); ",
+									"var csrfTokenname = responseHTML.find('[name=\"_csrf_token\"]').val();",
+									"console.log(csrfTokenname);",
+									"",
+									"// pm.globals.set(\"csrfTokenname\", csrfTokenname);",
+									"pm.environment.set(\"csrf_token\", csrfTokenname);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:65.0) Gecko/20100101 Firefox/65.0"
+							},
+							{
+								"key": "Accept",
+								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.7,nl;q=0.3"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Upgrade-Insecure-Requests",
+								"value": "1"
+							},
+							{
+								"key": "TE",
+								"value": "Trailers"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://epic.clow.nl/login",
+							"protocol": "https",
+							"host": [
+								"epic",
+								"clow",
+								"nl"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "To login to EPIC, a correct CSRF token is needed. This can be obtained by simply going to the page and extracting the CSRF token from a hidden input."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6f1f530-06ec-4f23-8a4a-37b8039d854e",
+								"exec": [
+									"pm.test(\"Status code is 302\", function () {",
+									"    pm.response.to.have.status(302);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:65.0) Gecko/20100101 Firefox/65.0"
+							},
+							{
+								"key": "Accept",
+								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.7,nl;q=0.3"
+							},
+							{
+								"key": "Referer",
+								"value": "https://epic.clow.nl/login"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Upgrade-Insecure-Requests",
+								"value": "1"
+							},
+							{
+								"key": "TE",
+								"value": "Trailers"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "_username",
+									"value": "teststudent",
+									"type": "text"
+								},
+								{
+									"key": "_password",
+									"value": "teststudent",
+									"type": "text"
+								},
+								{
+									"key": "_csrf_token",
+									"value": "{{csrf_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://epic.clow.nl/login",
+							"protocol": "https",
+							"host": [
+								"epic",
+								"clow",
+								"nl"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Logs in to EPIC by performing a POST request, the same way it's done normally."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28ab0274-6f13-4ced-9275-8b754dd3cead",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Check of de id correct terug wordt gegeven\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(\"teststudent\");",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"pm.environment.set(\"id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://epic.clow.nl/token",
+							"protocol": "https",
+							"host": [
+								"epic",
+								"clow",
+								"nl"
+							],
+							"path": [
+								"token"
+							]
+						},
+						"description": "Gets the token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms ophalen met foute token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c0dc86ae-0140-4dc7-a345-d020b2969a42",
+						"exec": [
+							"pm.test(\"Status code is 401: Unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Unauthorized token\");",
+							"});",
+							"",
+							"var bodyJson = pm.response.json();",
+							"pm.test(\"Response is not an array\", function() {",
+							"    var isNotArray = !Array.isArray(bodyJson) // false",
+							"    pm.expect(isNotArray).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/rooms/check/{{wrongToken}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"rooms",
+						"check",
+						"{{wrongToken}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rooms ophalen met correcte token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddcd3cf9-3911-4d43-8424-84f845cb794a",
+						"exec": [
+							"pm.test(\"Status code is 200: OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var bodyJson = pm.response.json();",
+							"pm.test(\"Response is an array\", function() {",
+							"    var isArray = Array.isArray(bodyJson) // true",
+							"    pm.expect(isArray).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/rooms/check/{{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"rooms",
+						"check",
+						"{{token}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Messages ophalen met foute token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f0c4f87-abad-45ba-a938-1f518138d5dd",
+						"exec": [
+							"pm.test(\"Status code is 401: Unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Unauthorized token\");",
+							"});",
+							"",
+							"var bodyJson = pm.response.json();",
+							"pm.test(\"Response is not an array\", function() {",
+							"    var isNotArray = !Array.isArray(bodyJson) // false",
+							"    pm.expect(isNotArray).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/rooms/checkMessages/{{wrongToken}}/{{roomID}}?page={{pageNumber}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"rooms",
+						"checkMessages",
+						"{{wrongToken}}",
+						"{{roomID}}"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{pageNumber}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Messages ophalen met foute room ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4595758e-809d-4f9d-8df0-356081f83a7f",
+						"exec": [
+							"pm.test(\"Status code is 404: Not Found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/rooms/checkMessages/{{token}}/{{wrongRoomID}}?page={{pageNumber}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"rooms",
+						"checkMessages",
+						"{{token}}",
+						"{{wrongRoomID}}"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{pageNumber}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Messages ophalen met correcte values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d26f480d-ea49-4d60-a4dd-e73b19b553f6",
+						"exec": [
+							"pm.test(\"Status code is 200: OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var bodyJson = pm.response.json();",
+							"pm.test(\"Response is an array\", function() {",
+							"    var isArray = Array.isArray(bodyJson) // true",
+							"    pm.expect(isArray).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/rooms/checkMessages/{{token}}/{{roomID}}?page={{pageNumber}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"rooms",
+						"checkMessages",
+						"{{token}}",
+						"{{roomID}}"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{pageNumber}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bericht versturen met foute room ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0bd39248-f217-40e2-88f1-f6773702f895",
+						"exec": [
+							"pm.test(\"Status code is 500: Internal Server Error\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user_id",
+							"value": "{{id}}",
+							"type": "text"
+						},
+						{
+							"key": "room_id",
+							"value": "{{wrongRoomID}}",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "{{message}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/messages/send/{{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"messages",
+						"send",
+						"{{token}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bericht versturen met correcte values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b77d2a4-aa90-4646-a8a9-1ab3491b7b05",
+						"exec": [
+							"pm.test(\"Status code is 201: Created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Check if the correct message description is returned by the API.\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.description).to.eql(pm.environment.get(\"message\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user_id",
+							"value": "{{id}}",
+							"type": "text"
+						},
+						{
+							"key": "room_id",
+							"value": "{{roomID}}",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "{{message}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/messages/send/{{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"messages",
+						"send",
+						"{{token}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bf998ddc-143b-4850-829b-122bb7be004c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a3a460a2-37e9-4a39-86b3-4244392f7a3f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

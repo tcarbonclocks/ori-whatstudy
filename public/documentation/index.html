@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="nl">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ORI 3 - Whatstudy - Documentatie</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <h1>Documentatie voor WhatStudy ORI3 - Avinash (US1)</h1>
-        <h2>Testscript voor frontend</h2>
-        <code>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ORI 3 - Whatstudy - Documentatie</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>Documentatie voor WhatStudy ORI3 - Avinash (US1-5)</h1>
+
+    <h2>Use Case Diagram</h2>
+    <img src="img/usecasediagram.png">
+
+    <h2>Class Diagram</h2>
+    <img src="img/classdiagram.png">
+
+    <h2>ERD</h2>
+    <img src="img/erd.png">
+
+    <h2><a href="ORI WhatStudy - s1132653.postman_collection.json">Backend tests met Postman (rechtermuisknop->opslaan als)</a></h2>
+    <h2><a href="WhatStudy ORI Server - s1132653.postman_environment.json">Postman environment (nodig voor testen met ORI server)</a></h2>
+    <h2><a href="WhatStudy local - s1132653.postman_environment.json">Postman environment (nogig voor testen met local server)</a></h2>
+
+    <h2>Testscript voor frontend (US1)</h2>
+    <code>
                 !|script      |browser test                                                              |</br>
                 |open         |https://ori.clow.nl/~s1132653/whatstudy/                                  |</br>
                 |check        |page title |ORI 3 - Whatstudy                                             |</br>
@@ -29,13 +45,101 @@
                 |ensure       |is visible |Ingelogd als Test Student (teststudent)|in|id=loggedin-text   |
         </code>
 
-        <h2>Use Case Diagram</h2>
-        <img src="img/usecasediagram.png">
+    <h2>Testscript voor frontend (US2)</h2>
+    <code>
+            !|script      |browser test                                                                           |</br>
+            |open         |https://ori.clow.nl/~s1132653/whatstudy/                                               |</br>
+            |check        |page title |ORI 3 - Whatstudy                                                          |</br>
+            |ensure       |is visible |Inloggen niet gelukt                        |in    |id=login-fail-modal    |</br>
+            |click        |EPIC       |in                                          |id=login-fail-modal           |</br>
+            |switch to next tab                                                                                   |</br>
+            |wait for page|Windesheim Epic - Homepage                                                             |</br>
+            |enter        |teststudent|as                                          |name=_username                |</br>
+            |enter        |teststudent|as                                          |name=_password                |</br>
+            |click        |xpath=//html/body/main/div/form/button                                                 |</br>
+            |close tab                                                                                            |</br>
+            |click        |Sluiten                                                                                |</br>
+            |click        |id=btn-login                                                                           |</br>
+            |ensure       |is visible |Ingelogd als Test Student (teststudent)     |in    |id=loggedin-text       |</br>
+            |ensure       |is visible |Rooms                                       |in    |id=navbar              |</br>
+            |click        |Rooms      |in                                          |id=navbar                     |</br>
+            |click        |Public                                                                                 |</br>
+            |ensure       |is visible |Room 1: Public                              |in    |id=chat-header         |</br>
+            |# This long xpath looks if there is a message.|</br>
+            |ensure       |is visible |xpath=//*[contains(concat(" ", normalize-space(@class), " "), " message ")]|
+        </code>
 
-        <h2>Use Case Diagram</h2>
-        <img src="img/classdiagram.png">
+    <h2>Testscript voor frontend (US3)</h2>
+        <code>
+            !|script      |browser test                                                                                                                                             |</br>
+            |open         |https://ori.clow.nl/~s1132653/whatstudy/                                                                                                                 |</br>
+            |check        |page title                                 |ORI 3 - Whatstudy                                                                                            |</br>
+            |ensure       |is visible                                 |Inloggen niet gelukt                                   |in                |id=login-fail-modal               |</br>
+            |click        |EPIC                                       |in                                                     |id=login-fail-modal                                  |</br>
+            |switch to next tab                                                                                                                                                     |</br>
+            |wait for page|Windesheim Epic - Homepage                                                                                                                               |</br>
+            |enter        |teststudent                                |as                                                     |name=_username                                       |</br>
+            |enter        |teststudent                                |as                                                     |name=_password                                       |</br>
+            |click        |xpath=//html/body/main/div/form/button                                                                                                                   |</br>
+            |close tab                                                                                                                                                              |</br>
+            |click        |Sluiten                                                                                                                                                  |</br>
+            |click        |id=btn-login                                                                                                                                             |</br>
+            |ensure       |is visible                                 |Ingelogd als Test Student (teststudent)                |in                |id=loggedin-text                  |</br>
+            |ensure       |is visible                                 |Rooms                                                  |in                |id=navbar                         |</br>
+            |click        |Rooms                                      |in                                                     |id=navbar                                            |</br>
+            |click        |Public                                                                                                                                                   |</br>
+            |ensure       |is visible                                 |Room 1: Public                                         |in                |id=chat-header                    |</br>
+            |# This long xpath looks if there is a message.                                                                                                                         |</br>
+            |ensure       |is visible                                 |xpath=//*[contains(concat(" ", normalize-space(@class), " "), " message ")]                                  |</br>
+            |enter        |TEST                                       |as                                                     |id=send-input                                        |</br>
+            |click        |id=send-input                                                                                                                                            |</br>
+            |press        |ENTER                                                                                                                                                    |</br>
+            |# This makes sure that the correct element has the correct message. XPaths can be quite specific.                                                                      |</br>
+            |ensure       |is visible                                 |xpath=(//ul[@id="chat-container"]/li[last() - 1][contains(., "TEST")])                                       |</br>
+            |enter        |https://www.youtube.com/watch?v=LDU_Txk06tM|as                                                     |id=send-input                                        |</br>
+            |click        |id=send-input                                                                                                                                            |</br>
+            |press        |ENTER                                                                                                                                                    |</br>
+            |# This makes sure that the correct element has the correct message. XPaths can be quite specific.                                                                      |</br>
+            |ensure       |is visible                                 |xpath=(//ul[@id="chat-container"]/li[last() - 1][contains(., "https://www.youtube.com/watch?v=LDU_Txk06tM")])|
+        </code>
 
-        <h2>ERD</h2>
-        <img src="img/erd.png">
-    </body>
+    <h2>Testscript voor frontend (US2)</h2>
+    <code>
+            !|script      |browser test                                                                                                                                             |</br>
+            |open         |https://ori.clow.nl/~s1132653/whatstudy/                                                                                                                 |</br>
+            |check        |page title                                 |ORI 3 - Whatstudy                                                                                            |</br>
+            |ensure       |is visible                                 |Inloggen niet gelukt                                   |in                |id=login-fail-modal               |</br>
+            |click        |EPIC                                       |in                                                     |id=login-fail-modal                                  |</br>
+            |switch to next tab                                                                                                                                                     |</br>
+            |wait for page|Windesheim Epic - Homepage                                                                                                                               |</br>
+            |enter        |teststudent                                |as                                                     |name=_username                                       |</br>
+            |enter        |teststudent                                |as                                                     |name=_password                                       |</br>
+            |click        |xpath=//html/body/main/div/form/button                                                                                                                   |</br>
+            |close tab                                                                                                                                                              |</br>
+            |click        |Sluiten                                                                                                                                                  |</br>
+            |click        |id=btn-login                                                                                                                                             |</br>
+            |ensure       |is visible                                 |Ingelogd als Test Student (teststudent)                |in                |id=loggedin-text                  |</br>
+            |ensure       |is visible                                 |Rooms                                                  |in                |id=navbar                         |</br>
+            |click        |Rooms                                      |in                                                     |id=navbar                                            |</br>
+            |click        |Public                                                                                                                                                   |</br>
+            |ensure       |is visible                                 |Room 1: Public                                         |in                |id=chat-header                    |</br>
+            |# This long xpath looks if there is a message.                                                                                                                         |</br>
+            |ensure       |is visible                                 |xpath=//*[contains(concat(" ", normalize-space(@class), " "), " message ")]                                  |</br>
+            |enter        |TEST                                       |as                                                     |id=send-input                                        |</br>
+            |click        |id=send-input                                                                                                                                            |</br>
+            |press        |ENTER                                                                                                                                                    |</br>
+            |# This makes sure that the correct element has the correct message. XPaths can be quite specific.                                                                      |</br>
+            |ensure       |is visible                                 |xpath=(//ul[@id="chat-container"]/li[last() - 1][contains(., "TEST")])                                       |</br>
+            |enter        |https://www.youtube.com/watch?v=LDU_Txk06tM|as                                                     |id=send-input                                        |</br>
+            |click        |id=send-input                                                                                                                                            |</br>
+            |press        |ENTER                                                                                                                                                    |</br>
+            |# This makes sure that the correct element has the correct message. XPaths can be quite specific.                                                                      |</br>
+            |ensure       |is visible                                 |xpath=(//ul[@id="chat-container"]/li[last() - 1][contains(., "https://www.youtube.com/watch?v=LDU_Txk06tM")])|</br>
+            |click        |Rooms                                      |in                                                     |id=navbar                                            |</br>
+            |click        |Fitnesse                                                                                                                                                 |</br>
+            |ensure       |is visible                                 |Room 5: Fitnesse                                       |in                |id=chat-header                    |</br>
+            |ensure       |is not visible                             |xpath=(//ul[@id="chat-container"]/li[last() - 1][contains(., "https://www.youtube.com/watch?v=LDU_Txk06tM")])|
+    </code>
+</body>
+
 </html>
