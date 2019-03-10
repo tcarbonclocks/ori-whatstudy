@@ -210,7 +210,7 @@ function addButtonActions() {
 
 /**
  * Wrapper around the getToken function.
- * Uses jQuery, but can probably use Vue (https://github.com/tcarbonclocks/ori-whatstudy/issues/3)
+ * Uses jQuery, but can probably use Vue
  */
 function login() {
     getToken();
@@ -356,7 +356,7 @@ function tokenError(message) {
 
 /**
  * If logging in is succesful, the token is stored and the rooms are fetched.
- * Again, I could replace the jQuery with Vue (https://github.com/tcarbonclocks/ori-whatstudy/issues/3).
+ * Again, I could replace the jQuery with Vue
  * @param {*} token the user token.
  */
 function tokenSuccess(token) {
