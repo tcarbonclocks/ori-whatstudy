@@ -368,7 +368,19 @@ function tokenSuccess(token) {
     fetchRooms(userToken);
 }
 
+function stupidEasterEgg() {
+    $(document).on("keydown", function (event) {
+        if (event.altKey && event.which === 39) {
+            console.log("Secret easter egg");
+            document.body.innerHTML = "<h2>Congrats</h2>";
+            document.body.style.color = "white";
+            document.body.style.backgroundImage = "url('./img/Lavender.jpg')";
+        }
+    });
+}
+
 
 // initialize
 login();
 addButtonActions();
+stupidEasterEgg();
