@@ -142,6 +142,7 @@ const routes = [
  * Initializing vue-router with routes
  */
 const router = new VueRouter({
+    mode: "history",
     routes // short for `routes: routes`
 });
 
