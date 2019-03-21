@@ -376,12 +376,6 @@ function stupidEasterEgg() {
             document.body.style.color = "white";
             document.body.style.backgroundImage = "url('./img/Lavender.jpg')";
         };
-        if (event.altKey && event.which === 37) {
-            console.log("Secret easter egg");
-            document.body.innerHTML = "<h2>Congrats</h2>";
-            document.body.style.color = "white";
-            document.body.style.backgroundImage = "url('./img/Justin.jpg')";
-        }
     });
 }
 
