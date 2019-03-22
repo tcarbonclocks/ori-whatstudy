@@ -326,7 +326,8 @@ function sendMessageSuccess(response) {
 
     messageInput.value = "";
     console.log("Message sent: " + response);
-    fetchMessages(userToken, roomNumber, 1);
+    app.rooms += response;
+    // fetchMessages(userToken, roomNumber, 1);
 }
 
 /**
@@ -368,7 +369,11 @@ function tokenSuccess(token) {
     fetchRooms(userToken);
 }
 
-function stupidEasterEgg() {
+/**
+ * This script is stupid, why did I make it?
+ * @param {string} picture Picture to be included
+ */
+function stupidEasterEgg(picture) {
     $(document).on("keydown", function (event) {
         if (event.altKey && event.which === 39) {
             console.log("Secret easter egg");
