@@ -326,7 +326,7 @@ function sendMessageSuccess(response) {
 
     messageInput.value = "";
     console.log("Message sent: " + response);
-    app.rooms += response;
+    app.messages += response;
     // fetchMessages(userToken, roomNumber, 1);
 }
 
