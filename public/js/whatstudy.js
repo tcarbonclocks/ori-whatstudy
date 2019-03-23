@@ -368,23 +368,7 @@ function tokenSuccess(token) {
     fetchRooms(userToken);
 }
 
-/**
- * This script is stupid, why did I make it?
- * @param {string} picture Picture to be included
- */
-function stupidEasterEgg(picture) {
-    $(document).on("keydown", function (event) {
-        if (event.altKey && event.which === 39) {
-            console.log("Secret easter egg");
-            document.body.innerHTML = "<h2>Congrats</h2>";
-            document.body.style.color = "white";
-            document.body.style.backgroundImage = "url('./img/Lavender.jpg')";
-        };
-    });
-}
-
 
 // initialize
 login();
 addButtonActions();
-stupidEasterEgg();
