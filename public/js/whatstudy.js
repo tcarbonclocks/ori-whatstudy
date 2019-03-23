@@ -162,7 +162,7 @@ Vue.component('dropdown-item', {
 Vue.component('message', {
     props: ['message'],
     template: `
-    <li class="list-group-item message"><b>{{ message.user.name }} ({{ message.user_id }}, {{ message.user.usertype.name }}), {{ convertTime(message.created_at) }} </b></br> {{ message.description }}</li>
+    <li class="list-group-item message"><b>{{ message.user.name }} ({{ message.user_id }}, {{ message.user.usertype.name }}), {{ convertTime(message.created_at) }} </b></br>{{ message.description }}</li>
     `,
     methods: {
         /**
