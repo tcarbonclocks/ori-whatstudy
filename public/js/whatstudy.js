@@ -69,7 +69,7 @@ const roomPage = {
                 <button v-on:click="this.fetchMessages(this.userToken, this.roomNumber, 1)" type="button" class="btn btn-primary ml-auto" id="refresh-button"><i class="fas fa-sync-alt"></i></button>
             </li>
             <message v-for='message in this.$parent.messages' v-bind:message='message' v-bind:key='message.id'></message>
-            <li class="list-group-item fixed-bottom fixed-bottom-600px"><input v-on:keyup.enter="this.getMessageInput" class="form-control" type="text" placeholder="Druk op Enter om te sturen." id="send-input"></li>
+            <li class="list-group-item fixed-bottom fixed-bottom-600px"><textarea @keydown.enter.exact.prevent @keyup.enter.exact="this.getMessageInput" @keydown.enter.shift.exact="newline" rows="2" class="form-control" type="text" placeholder="Druk op Enter om te sturen." id="send-input"></textarea></li>
         </ul>
     </div>
     `,
@@ -100,6 +100,11 @@ const roomPage = {
             next();
         }
     },
+    methods: {
+        newline() {
+          this.value = `${this.value}\n`;
+        },
+      },
 };
 
 // This page appears when an incorrect room number is entered.
@@ -324,6 +329,7 @@ function sendMessage(message, token, roomID, userID) {
 function sendMessageSuccess(response) {
     var messageInput = document.getElementById("send-input");
 
+    messageInput.setAttribute('style','');
     messageInput.value = "";
     console.log("Message sent: " + response);
     fetchMessages(userToken, roomNumber, 1);
