@@ -57,7 +57,7 @@ class MessageController extends Controller
             return response()->json('Unauthorized token', 401);
         }
 
-        $messages = DB::table('messages')->select(DB::raw('left(created_at,10) as create_date, count(*) as number') )->groupBy('create_date')->orderByDesc('create_date')->limit(7)->get();
+        $messages = DB::table('messages')->select(DB::raw('left(created_at,10) as create_date, count(*) as number') )->groupBy('create_date')->orderByDesc('create_date')->limit(5)->get();
         return response()->json($messages);
     }
 
