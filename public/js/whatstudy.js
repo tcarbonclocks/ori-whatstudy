@@ -320,11 +320,19 @@ function errorMessages(statusCode, errorMessage) {
     $('#load-fail-modal').modal('show');
 }
 
+/**
+ * This function calls the API to get te statistics
+ * @param {array} token the user token, which contains the token
+ */
 function getStatistics(token) {
     var myApi = new Api('GET', 'statistics/check/' + token.token, null);
     myApi.execute(showStatistics, errorStatistics);
 }
 
+/**
+ * Draws a graph, based on the response from the API.
+ * @param {array} response The response from the API.
+ */
 function showStatistics(response) {
     console.log(response);
 
@@ -374,6 +382,11 @@ function showStatistics(response) {
     });
 }
 
+/**
+ * Error retrieving statistics
+ * @param {*} statusCode 
+ * @param {*} errorMessage 
+ */
 function errorStatistics(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
