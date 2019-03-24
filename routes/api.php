@@ -26,3 +26,5 @@ Route::get('users/check/{token}/{user}', 'UserController@showOne');
 Route::get('rooms/checkMessages/{token}/{room}', 'RoomController@showRoomMessages');
 
 Route::post('messages/send/{token}', 'MessageController@sendMessage');
+
+Route::get('statistics/check/{token}', 'MessageController@getStatistics');

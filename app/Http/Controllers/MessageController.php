@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Message;
 use App\Token;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
@@ -49,6 +50,15 @@ class MessageController extends Controller
         $message = Message::create($request->all());
 
         return response()->json($message, 201);
+    }
+
+    public function getStatistics($token) {
+        if (!Token::check($token)) {
+            return response()->json('Unauthorized token', 401);
+        }
+
+        $messages = DB::table('messages')->select(DB::raw('left(created_at,10) as create_date, count(*) as number') )->groupBy('create_date')->orderByDesc('create_date')->limit(7)->get();
+        return response()->json($messages);
     }
 
     /**
