@@ -324,10 +324,10 @@ function showStatistics(response) {
     messagesChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [response[7].create_date, response[6].create_date, response[5].create_date, response[4].create_date, response[3].create_date, response[2].create_date, response[1].create_date,],
+            labels: [response[6].create_date, response[5].create_date, response[4].create_date, response[3].create_date, response[2].create_date, response[1].create_date, response[0].create_date,],
             datasets: [{
                 label: 'Aantal berichten',
-                data: [response[7].number, response[6].number, response[5].number, response[4].number, response[3].number, response[2].number, response[1].number,],
+                data: [response[6].number, response[5].number, response[4].number, response[3].number, response[2].number, response[1].number, response[0].number,],
                 backgroundColor: [
                     '#9a0089',
                     '#9a0089',
