@@ -116,6 +116,9 @@ const roomErrorPage = {
     `
 };
 
+/**
+ * This is the template for the statistics page.
+ */
 const statisticsPage = {
     template: `
     <div>
