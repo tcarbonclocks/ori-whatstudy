@@ -119,7 +119,7 @@ const roomErrorPage = {
 const statisticsPage = {
     template: `
     <div>
-        <canvas id="messages-graph"></canvas>
+        <canvas id="messages-chart"></canvas>
     </div>
     `,
     beforeRouteEnter: (to, from, next) => {
