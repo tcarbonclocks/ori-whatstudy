@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "07f2e303-b152-4a40-a407-3aef0fdbcfd7",
+		"_postman_id": "2887eb3f-59dd-461f-8093-c508aa96f471",
 		"name": "ORI WhatStudy - s1132653",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -32,9 +32,6 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -63,7 +60,10 @@
 								"value": "Trailers"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "https://epic.clow.nl/login",
 							"protocol": "https",
@@ -86,10 +86,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e6f1f530-06ec-4f23-8a4a-37b8039d854e",
+								"id": "8bbca21c-3117-4eb4-b6b5-82642a20a249",
 								"exec": [
-									"pm.test(\"Status code is 302\", function () {",
-									"    pm.response.to.have.status(302);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -583,6 +583,30 @@
 						"api",
 						"messages",
 						"send",
+						"{{token}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Statistics ophalen",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/statistics/check/{{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"statistics",
+						"check",
 						"{{token}}"
 					]
 				}
