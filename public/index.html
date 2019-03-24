@@ -38,6 +38,9 @@
                             </dropdown-item>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" v-bind:to="{ name: 'statisticsPage'}">Statistieken</router-link>
+                     </li>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item">
@@ -135,6 +138,8 @@
 
     <script src="https://ori.clow.nl/cdn/vue/2.5.22/vue.js"></script>
     <script src="https://ori.clow.nl/cdn/vue-router/3.0.2/vue-router.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 
     <script src="https://ori.clow.nl/cdn/api.js"></script>
     <script src="js/whatstudy.js"></script>

@@ -116,6 +116,19 @@ const roomErrorPage = {
     `
 };
 
+const statisticsPage = {
+    template: `
+    <div>
+        <canvas id="messages-graph"></canvas>
+    </div>
+    `,
+    beforeRouteEnter: (to, from, next) => {
+        console.log("Loading statistics...");
+        getStatistics(userToken);
+        next();
+    }
+}
+
 
 /**
  * Routes for Vue-Router
@@ -140,6 +153,11 @@ const routes = [
         path: "/roomerror",
         component: roomErrorPage,
         name: "roomErrorPage"
+    },
+    {
+        path: "/statistics",
+        component: statisticsPage,
+        name: "statisticsPage"
     }
 ];
 
@@ -292,6 +310,65 @@ function errorMessages(statusCode, errorMessage) {
     console.log(statusCode);
     console.log(errorMessage);
     $('#load-fail-modal').modal('show');
+}
+
+function getStatistics(token) {
+    var myApi = new Api('GET', 'statistics/check/' + token.token, null);
+    myApi.execute(showStatistics, errorStatistics);
+}
+
+function showStatistics(response) {
+    console.log(response);
+
+    var ctx = document.getElementById("messages-chart");
+    messagesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [response[7].create_date, response[6].create_date, response[5].create_date, response[4].create_date, response[3].create_date, response[2].create_date, response[1].create_date,],
+            datasets: [{
+                label: 'Aantal berichten',
+                data: [response[7].number, response[6].number, response[5].number, response[4].number, response[3].number, response[2].number, response[1].number,],
+                backgroundColor: [
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                ],
+                borderColor: [
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                    '#9a0089',
+                ],
+                borderWidth: 9
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: "Verstuurde berichten van afgelopen 7 dagen",
+                fontSize: 30,
+            }
+        }
+    });
+}
+
+function errorStatistics(statusCode, errorMessage) {
+    console.log(statusCode);
+    console.log(errorMessage);
 }
 
 /**
