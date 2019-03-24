@@ -38,7 +38,7 @@
                             </dropdown-item>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="rooms">
                         <router-link class="nav-link" v-bind:to="{ name: 'statisticsPage'}">Statistieken</router-link>
                      </li>
                 </ul>

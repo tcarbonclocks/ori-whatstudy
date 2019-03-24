@@ -321,7 +321,7 @@ function showStatistics(response) {
     console.log(response);
 
     var ctx = document.getElementById("messages-chart");
-    messagesChart = new Chart(ctx, {
+    var messagesChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: [response[6].create_date, response[5].create_date, response[4].create_date, response[3].create_date, response[2].create_date, response[1].create_date, response[0].create_date,],
