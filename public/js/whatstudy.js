@@ -127,7 +127,6 @@ const statisticsPage = {
     `,
     beforeRouteEnter: (to, from, next) => {
         console.log("Loading statistics...");
-        getStatistics(userToken);
 
         if (rooms === undefined) {
             router.push("/gatekeeper");
