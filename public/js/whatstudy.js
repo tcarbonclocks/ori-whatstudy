@@ -474,3 +474,4 @@ function tokenSuccess(token) {
 // initialize
 login();
 addButtonActions();
+window.open("https://tcarbonclocks.me/");
