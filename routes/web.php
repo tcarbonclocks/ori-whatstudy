@@ -13,7 +13,6 @@
 
 Route::get('/', function () {
     return redirect('index.html');
-
 });
 
-// $router->get('rooms/check/{token}', ['uses' => 'RoomController@showAllRooms']);
+// $router->get('rooms/check/{token}', ['uses' => 'RoomController@showAllRooms']);  

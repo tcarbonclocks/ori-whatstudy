@@ -18,6 +18,6 @@ if ($uri !== '/' && file_exists(__DIR__.'/public'.$uri)) {
     return false;
 }
 
-require_once __DIR__. '/public/api/index.php';
+require_once __DIR__. '/public/index.php';
 
 // /public/api/index.php
